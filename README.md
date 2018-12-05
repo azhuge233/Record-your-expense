@@ -16,11 +16,11 @@ Simply run
 python run.py
 ```
 
-in the directory. 
-
-The website will run at localhost:2323 by default.
+in the directory. The website will run at localhost:2323 by default.
 
 To modify the port, change the PORT variable in run.py file.
+
+I wrote this on Windows, if it’s Linux, you should change two PATH variable in the json-op.py file.
 
 ## Other things
 
