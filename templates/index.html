@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}
+        <link href="{{ url_for('static', filename='css/nes.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+    {% endblock %}
+    {% block js %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/display-control.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/validate.js') }}"></script>
+    {% endblock %}
+    <title>What's the Cost</title>
+</head>
+<body>
+    <header>
+        <h1 style="text-align:center">But what's the cost?</h1>
+    </header>
+    <section class="container with-title">
+        <h2 class="title">New Outcome</h2>
+        <form method="get" action="/add" onsubmit=" return validate(this)">
+            <table id="bigTbl" class="table" style="width:auto;margin:auto;">
+            <tr>
+                <td>
+                    <div class="field">
+                        <label for="NameTxb1">What cost this much?</label>
+                        <input type="text" id="NameTxb1" name="CostName" placeholder="Name" class="input" style="width:auto" />
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <label for="TypeDdl1">$or￥?</label>
+                        <select id="TypeDdl1" name="MoneyType" class="input">
+                            <option value="USD">USD</option>
+                            <option value="CNY">CNY</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                    <label for="MoneyTxb1">How much is it?</label>
+                    <input type="text" id="MoneyTxb1" name="CostMoney" placeholder="Money" class="input" style="width:250px" />
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <label for="CommentTxb1">Anything to say?</label>
+                        <input type="text" id="CommentTxb1" name="CostComment" placeholder="Comment" class="input" style="width:auto" />
+                    </div>
+                </td>
+                <td>
+                    <div class="field">
+                        <label for="CfmBtn1">Hit me!</label>
+                        <input id="CfmBtn1" type="submit" value="Confirm" class="btn is-success"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <form method="get" action="/add" onsubmit=" return validate(this)">
+            <table id="smallTbl" class="table" style="width:auto;margin:auto;display:none">
+            <tr>
+                <td>
+                    <div class="field">
+                        <label for="NameTxb">What cost this much?</label>
+                        <input type="text" id="NameTxb" name="CostName" placeholder="Name" class="input" style="width:auto" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="field">
+                        <label for="TypeDdl">$ or ￥?</label>
+                        <select id="TypeDdl" name="MoneyType" class="input">
+                            <option value="$">USD</option>
+                            <option value="￥">CNY</option>
+                        </select>
+
+                        <label for="MoneyTxb">How much is it?</label>
+                        <input type="text" id="MoneyTxb" name="CostMoney" placeholder="Money" class="input" style="width:auto" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="field">
+                        <label for="CommentTxb">Anything to say?</label>
+                        <input type="text" id="CommentTxb" name="CostComment" placeholder="Comment" class="input" style="width:auto" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="field">
+                        <label for="CfmBtn">Hit me!</label>
+                        <input id="CfmBtn" type="submit" name="CostBtn" value="Confirm" class="btn is-success"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </section>
+    <section class="container with-title">
+        <h2 class="title">This is the cost.</h2>
+        <table class="table is-bordered is-centered" style="text-align:center;margin:auto">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Cost</th>
+                    <th style="text-align:center">Comment</th>
+                    <th style="text-align:center">Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in range(length) %}
+            <tr>
+                <td>{{pre_costs[i][0]}}</td>
+                <td>{{pre_costs[i][2] + " " + pre_costs[i][1]}}</td>
+                <td>{{pre_costs[i][3]}}</td>
+                <td>
+                    <form method="get" action="/del" onsubmit="return ensure()">
+                        <input type="hidden" name="ID" value="{{ pre_cost_id[i] }}" />
+                        <input class="btn is-error" type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br />
+        <div style="text-align:right;">
+            <label>Total Amount: {{ tol_costs["USD"] }} USD {{ tol_costs["CNY"] }} CNY</label>
+        </div>
+    </section>
+</body>
+</html>
