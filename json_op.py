@@ -14,8 +14,8 @@ def create_tolcost(path):
 
 def create_precost(path):
 	tmpdic = dict({})
-	tmpdic["test1"] = ["test1", "USD", "7.00", "Test1 Comment"]
-	tmpdic["test2"] = ["test2", "USD", "1.00", "Test2 Comment"]
+	# tmpdic["test1"] = ["test1", "USD", "7.00", "Test1 Comment"]
+	# tmpdic["test2"] = ["test2", "USD", "1.00", "Test2 Comment"]
 	with open(path, "w", encoding='utf-8') as f:
 		json.dump(tmpdic, f)
 

@@ -32,7 +32,7 @@ def add():
 	
 	tol_data, pre_data = open_file()
 	
-	tol_data[moneytype] = str(float(tol_data[moneytype]) + float(money))
+	tol_data[moneytype] = str(round(float(tol_data[moneytype]) + float(money), 2))
 	pre_data[str(uuid.uuid1())] = [name, moneytype, money, comment]
 	
 	save_file(tol_data, pre_data)
@@ -46,7 +46,7 @@ def delete():
 	
 	tol_data, pre_data = open_file()
 	
-	tol_data[pre_data[id][1]] = str(float(tol_data[pre_data[id][1]]) - float(pre_data[id][2]))
+	tol_data[pre_data[id][1]] = str(round(float(tol_data[pre_data[id][1]]) - float(pre_data[id][2]), 2))
 	pre_data.pop(id)
 	
 	save_file(tol_data, pre_data)
