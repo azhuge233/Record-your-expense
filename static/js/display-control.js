@@ -58,7 +58,7 @@ function hideinfo() {
         }
     }
 
-    Button.value = "More Info";
+    Button.innerHTML = "More Info";
     Button.className = "btn is-primary";
     Button.onclick = function() { showinfo(); };
 }
@@ -74,7 +74,7 @@ function showinfo() {
         }
     }
 
-    Button.value = "Hide Info";
+    Button.innerHTML = "Hide Info";
     Button.className = "btn is-warning";
     Button.onclick = function() { hideinfo(); };
 }

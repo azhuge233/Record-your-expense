@@ -13,6 +13,29 @@
     <header>
         <h1 style="text-align:center">But what's the cost?</h1>
     </header>
+    {% if not loggedin %}
+    <div style="text-align:right">
+            <form method="post" action="/login">
+                <input type="input" placeholder="Username" name="username" class="input" />
+                <input type="password" placeholder="Password" name="password" class="input" />
+                <button type="submit" class="btn">Login</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <label style="color:red">{{ message }}</label>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+    </div>
+    {% else %}
+    <div style="text-align:right">
+        <label>You are now logged in!</label>
+        <form method="post" action="/logoff">
+            <button type="submit" class="btn is-error">Logoff</button>
+        </form>
+    </div>
+    {% endif %}
     <section class="container with-title">
         <h2 class="title">New Outcome</h2>
         <form method="get" action="/add" onsubmit=" return validate(this)">
@@ -48,7 +71,7 @@
                 <td>
                     <div class="field">
                         <label for="CfmBtn1">Hit me!</label>
-                        <input id="CfmBtn1" type="submit" value="Confirm" class="btn is-success"/>
+                        <button id="CfmBtn1" type="submit" class="btn is-success"/>Confirm</button>
                     </div>
                 </td>
             </tr>
@@ -90,7 +113,7 @@
                 <td>
                     <div class="field">
                         <label for="CfmBtn">Hit me!</label>
-                        <input id="CfmBtn" type="submit" value="Confirm" class="btn is-success"/>
+                        <button id="CfmBtn" type="submit" class="btn is-success">Confirm</button>
                     </div>
                 </td>
             </tr>
@@ -125,7 +148,7 @@
             </tbody>
         </table>
         <div style="text-align:right">
-            <input id="moreBtn" type="button" class="btn is-primary" value="More Info" style="display:none" onclick="showinfo()" />
+            <button id="moreBtn" type="button" class="btn is-primary" style="display:none" onclick="showinfo()">More Info</button>
         </div>
         <br />
         <table id="mobileTbl" class="table is-bordered is-centered" style="text-align:center;margin:auto;display:none">
@@ -146,7 +169,7 @@
                 <td style="display:none">
                     <form method="get" action="/del" onsubmit="return ensure()">
                         <input type="hidden" name="ID" value="{{ pre_cost_id[i] }}" />
-                        <input class="btn is-error" type="submit" value="Delete" />
+                        <button class="btn is-error" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
