@@ -2,7 +2,12 @@ import uuid
 from flask import *
 from json_op import *
 
+# Server Port
 PORT = 2323
+
+# Username and Password
+USERNAME = "admin"
+PASSWORD = ""
 
 app = Flask(__name__)
 app.secret_key = b'thisisareallysecretsecretkey'

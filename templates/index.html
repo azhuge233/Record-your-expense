@@ -7,11 +7,6 @@
         <link href="{{ url_for('static', filename='css/nes.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
     {% endblock %}
-    {% block js %}
-        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/display-control.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/validate.js') }}"></script>
-    {% endblock %}
     <title>What's the Cost</title>
 </head>
 <body>
@@ -104,7 +99,7 @@
     </section>
     <section class="container with-title">
         <h2 class="title">This is the cost.</h2>
-        <table class="table is-bordered is-centered" style="text-align:center;margin:auto">
+        <table id="desktopTbl" class="table is-bordered is-centered" style="text-align:center;margin:auto;display:">
             <thead>
                 <tr>
                     <th style="text-align:center">Name</th>
@@ -129,10 +124,44 @@
             {% endfor %}
             </tbody>
         </table>
+        <div style="text-align:right">
+            <input id="moreBtn" type="button" class="btn is-primary" value="More Info" style="display:none" onclick="showinfo()" />
+        </div>
+        <br />
+        <table id="mobileTbl" class="table is-bordered is-centered" style="text-align:center;margin:auto;display:none">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center;">Cost</th>
+                    <th style="text-align:center;display:none">Comment</th>
+                    <th style="text-align:center;display:none">Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in range(length) %}
+            <tr>
+                <td>{{pre_costs[i][0]}}</td>
+                <td >{{pre_costs[i][2] + " " + pre_costs[i][1]}}</td>
+                <td style="display:none">{{pre_costs[i][3]}}</td>
+                <td style="display:none">
+                    <form method="get" action="/del" onsubmit="return ensure()">
+                        <input type="hidden" name="ID" value="{{ pre_cost_id[i] }}" />
+                        <input class="btn is-error" type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
         <br />
         <div style="text-align:right;">
             <label>Total Amount: {{ tol_costs["USD"] }} USD {{ tol_costs["CNY"] }} CNY</label>
         </div>
     </section>
 </body>
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/display-control.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/validate.js') }}"></script>
+{% endblock %}
 </html>
