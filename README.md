@@ -18,9 +18,11 @@ python run.py
 
 in the directory. The website will run at localhost:2323 by default.
 
-To modify the port, change the PORT variable in run.py file.
+## Things you should modify
 
-I wrote this on Windows, if it’s Linux, you should change two PATH variable in the json-op.py file.
+-   To modify the port, change the PORT variable in run.py file.
+-   To modify the login username and password, you should change the USERNAME and PASSWORD variables in run.py. The username is “admin” and the password is empty by default.
+-   I wrote this on Windows, if it’s Linux, you should change the two PATH variable in the json-op.py file.
 
 ## Other things
 
