@@ -59,7 +59,7 @@ function hideinfo() {
     }
 
     Button.innerHTML = "More Info";
-    Button.className = "btn is-primary";
+    Button.className = "nes-btn is-primary";
     Button.onclick = function() { showinfo(); };
 }
 
@@ -75,6 +75,6 @@ function showinfo() {
     }
 
     Button.innerHTML = "Hide Info";
-    Button.className = "btn is-warning";
+    Button.className = "nes-btn is-warning";
     Button.onclick = function() { hideinfo(); };
 }
