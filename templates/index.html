@@ -79,12 +79,12 @@
         </table>
         </form>
         <form method="get" action="/add" onsubmit=" return validate(this)">
-            <table id="smallTbl" class="nes-table" style="width:auto;margin:auto;display:none">
+            <table id="smallTbl" class="nes-table" style="width:auto;margin:auto;display:none;table-layout:fixed;">
             <tr>
                 <td>
                     <div class="nes-field">
                         <label for="NameTxb">What cost this much?</label>
-                        <input type="text" id="NameTxb" name="CostName" placeholder="Name" class="nes-input" style="width:auto" />
+                        <input type="text" id="NameTxb" name="CostName" placeholder="Name" class="nes-input"/>
                     </div>
                 </td>
             </tr>
@@ -92,13 +92,13 @@
                 <td>
                     <div class="nes-field">
                         <label for="TypeDdl">$ or ￥?</label>
-                        <select id="TypeDdl" name="MoneyType" class="nes-input" style="width:auto">
+                        <select id="TypeDdl" name="MoneyType" class="nes-input">
                             <option value="USD">USD</option>
                             <option value="CNY">CNY</option>
                         </select>
 
                         <label for="MoneyTxb">How much is it?</label>
-                        <input type="text" id="MoneyTxb" name="CostMoney" placeholder="Money" class="nes-input" style="width:auto" />
+                        <input type="text" id="MoneyTxb" name="CostMoney" placeholder="Money" class="nes-input"/>
                     </div>
                 </td>
             </tr>
@@ -106,7 +106,7 @@
                 <td>
                     <div class="nes-field">
                         <label for="CommentTxb">Anything to say?</label>
-                        <input type="text" id="CommentTxb" name="CostComment" placeholder="Comment" class="nes-input" style="width:auto" />
+                        <input type="text" id="CommentTxb" name="CostComment" placeholder="Comment" class="nes-input" />
                     </div>
                 </td>
             </tr>
