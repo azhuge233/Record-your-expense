@@ -18,7 +18,7 @@
     <div style="text-align:right">
             <form method="post" action="/login">
                 <input id="username" placeholder="Username" name="username" class="nes-input" style="width:auto" />
-                <input id="password" placeholder="Password" name="password" class="nes-input" style="width:auto" />
+                <input id="password" type="password" placeholder="Password" name="password" class="nes-input" style="width:auto" />
                 <button type="submit" class="nes-btn">Login</button>
             </form>
             {% with messages = get_flashed_messages() %}
