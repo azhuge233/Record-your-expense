@@ -3,11 +3,12 @@ from flask import *
 from modules.json_op import *
 
 # Server Port
-PORT = 2323
+PORT = 23254
 
-# Username and Password
+# Configs
 USERNAME = "admin"
-PASSWORD = ""
+PASSWORD = "" # set password
+index_path = "index.html" # to use PaperCss theme, change this to "index_paper.html"
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -34,7 +35,7 @@ def index():
 		pre_list.append(pre_data[each])
 		preid_list.append(str(each))
 
-	return render_template("index.html", pre_costs=pre_list, tol_costs=tol_data, pre_cost_id=preid_list, length=len(
+	return render_template(index_path, pre_costs=pre_list, tol_costs=tol_data, pre_cost_id=preid_list, length=len(
 		preid_list), loggedin=is_logged_in)
 
 
