@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css %}
+        <link href="https://unpkg.com/papercss/dist/paper.min.css" rel="stylesheet" />
+        <link href="../static/css/style.css" rel="stylesheet" />
+    {% endblock %}
+    <title>What's the Cost</title>
+</head>
+<body class="paper site">
+    <header>
+        <h2 style="text-align:center">But what's the cost?</h2>
+    </header>
+    {% if not loggedin %}
+    <form method="post" action="/login">
+    <div class="row flex-right">
+        <div class="sm-2 col">
+            <div class="form-group">
+                <input id="username" placeholder="Username" name="username" class="input-block" />
+            </div>
+        </div>
+        <div class="sm-2 col">
+            <div class="form-group">
+                <input id="password" placeholder="Password" name="password" class="input-block" />
+            </div>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn-secondary">Login</button>
+        </div>
+    </div>
+    </form>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="row flex-right">
+                    <label style="color:red">{{ message }}</label>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% else %}
+    <div class="row flex-right" style="text-align:right">
+        <div class="sm-2 col">
+            <label>You are now logged in!</label>
+        </div>
+        <form method="post" action="/logoff">
+            <button type="submit" class="btn-danger">Logoff</button>
+        </form>
+    </div>
+    {% endif %}
+    <div class="paper">
+        <h3 class="title">New Outcome</h3>
+        <form method="get" action="/add" onsubmit=" return validate(this)">
+            <table id="bigTbl" style="width:auto;margin:auto;">
+            <tr>
+                <td>
+                    <div class="nes-field">
+                        <label for="NameTxb1">What cost this much?</label>
+                        <input type="text" id="NameTxb1" name="CostName" placeholder="Name" class="input-block" style="width:auto" />
+                    </div>
+                </td>
+                <td>
+                    <div class="nes-field">
+                        <label for="TypeDdl1">$or￥?</label>
+                        <select id="TypeDdl1" name="MoneyType" style="width:auto">
+                            <option value="USD">USD</option>
+                            <option value="CNY">CNY</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="nes-field">
+                    <label for="MoneyTxb1">How much is it?</label>
+                    <input type="text" id="MoneyTxb1" name="CostMoney" placeholder="Money" class="input-block" style="width:250px" />
+                    </div>
+                </td>
+                <td>
+                    <div class="nes-field">
+                        <label for="CommentTxb1">Anything to say?</label>
+                        <input type="text" id="CommentTxb1" name="CostComment" placeholder="Comment" class="input-block" style="width:auto" />
+                    </div>
+                </td>
+                <td>
+                    <div class="nes-field">
+                        <label for="CfmBtn1">Hit me!</label> </br>
+                        <button id="CfmBtn1" type="submit" class="btn-success">Confirm</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </form>
+        <form method="get" action="/add" onsubmit=" return validate(this)">
+            <table id="smallTbl" style="width:auto;margin:auto;display:none;table-layout:fixed;">
+            <tr>
+                <td>
+                    <div class="nes-field">
+                        <label for="NameTxb">What cost this much?</label>
+                        <input type="text" id="NameTxb" name="CostName" placeholder="Name" class="input-block" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="nes-field">
+                        <label for="TypeDdl">$ or ￥?</label>
+                        <select id="TypeDdl" name="MoneyType">
+                            <option value="USD">USD</option>
+                            <option value="CNY">CNY</option>
+                        </select>
+
+                        <label for="MoneyTxb">How much is it?</label>
+                        <input type="text" id="MoneyTxb" name="CostMoney" placeholder="Money" class="input-block" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="nes-field">
+                        <label for="CommentTxb">Anything to say?</label>
+                        <input type="text" id="CommentTxb" name="CostComment" placeholder="Comment" class="input-block"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="nes-field">
+                        <label for="CfmBtn">Hit me!</label> </br>
+                        <button id="CfmBtn" type="submit" class="btn-success">Confirm</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div class="paper">
+        <h3 class="title">This is the cost.</h3>
+        <table id="desktopTbl" style="text-align:center;margin:auto;display:">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center">Cost</th>
+                    <th style="text-align:center">Comment</th>
+                    <th style="text-align:center">Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in range(length) %}
+            <tr>
+                <td>{{pre_costs[i][0]}}</td>
+                <td>{{pre_costs[i][2] + " " + pre_costs[i][1]}}</td>
+                <td>{{pre_costs[i][3]}}</td>
+                <td>
+                    <form method="get" action="/del" onsubmit="return ensure()">
+                        <input type="hidden" name="ID" value="{{ pre_cost_id[i] }}" />
+                        <input class="paper-btn btn-danger" type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div style="text-align:right">
+            <button id="moreBtn" type="button" class="btn-warning" style="display:none" onclick="showinfo()">More Info</button>
+        </div>
+        <br />
+        <table id="mobileTbl" style="text-align:center;margin:auto;display:none">
+            <thead>
+                <tr>
+                    <th style="text-align:center">Name</th>
+                    <th style="text-align:center;">Cost</th>
+                    <th style="text-align:center;display:none">Comment</th>
+                    <th style="text-align:center;display:none">Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in range(length) %}
+            <tr>
+                <td>{{pre_costs[i][0]}}</td>
+                <td >{{pre_costs[i][2] + " " + pre_costs[i][1]}}</td>
+                <td style="display:none">{{pre_costs[i][3]}}</td>
+                <td style="display:none">
+                    <form method="get" action="/del" onsubmit="return ensure()">
+                        <input type="hidden" name="ID" value="{{ pre_cost_id[i] }}" />
+                        <button class="btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br />
+        <div style="text-align:right;">
+            <label>Total Amount: {{ tol_costs["USD"] }} USD {{ tol_costs["CNY"] }} CNY</label>
+        </div>
+    </div>
+</body>
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/display-control.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/validate.js') }}"></script>
+{% endblock %}
+</html>
