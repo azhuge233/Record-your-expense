@@ -3,7 +3,7 @@ from flask import *
 from modules.json_op import *
 
 # Server Port
-PORT = 23254
+PORT = 2323
 
 # Configs
 USERNAME = "admin"
